@@ -1,0 +1,42 @@
+@import '~antd/dist/antd.css';
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.site-layout .site-layout-background {
+    background: #fff;
+}
+
+$sizes: 12;
+
+$sides: (top, bottom, left, right);  
+
+@for $i from 1 through 999 {
+  @each $side in $sides {
+    .m#{str-slice($side, 0, 1)}-#{$i} {
+      margin-#{$side}: #{$i}px !important;
+    }
+    .p#{str-slice($side, 0, 1)}-#{$i} {
+      padding-#{$side}: #{$i}px !important;
+    }
+  }
+} 
+
+.ant-row {
+    margin-right: 0 !important;
+margin-left: 0 !important;
+}
+
+.ant-col:first-child {
+    padding-left: 0 !important;
+}
+
+.ant-col:last-child {
+padding-right: 0 !important;
+}
+
+.ant-descriptions-item-label{
+    font-weight: 600;
+}
