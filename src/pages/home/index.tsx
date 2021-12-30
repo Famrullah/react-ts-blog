@@ -13,19 +13,6 @@ const Home = () => {
     params: { _start: 0, _limit: 10 },
   })
 
-  const fetchAlbums = async () => {
-    const getAlbum = await getAlbumsList(
-      `albums?_start=${params.params._start}&_limit=${params.params._limit}?`
-    )
-    const users = await getUserList('users')
-    const data = getAlbum.map((item) =>
-      Object.assign(item, {
-        user: users.filter((val) => item.userId == val.id),
-      })
-    )
-    mappingUserAlbum(data, users)
-  }
-
   const mappingUserAlbum = (album: Albums[], users: Users[]) => {
     const albums = album.map((item) =>
       Object.assign(item, {
@@ -41,6 +28,18 @@ const Home = () => {
   }
 
   useEffect(() => {
+    const fetchAlbums = async () => {
+      const getAlbum = await getAlbumsList(
+        `albums?_start=${params.params._start}&_limit=${params.params._limit}?`
+      )
+      const users = await getUserList('users')
+      const data = getAlbum.map((item) =>
+        Object.assign(item, {
+          user: users.filter((val) => item.userId == val.id),
+        })
+      )
+      mappingUserAlbum(data, users)
+    }
     fetchAlbums()
   }, [setListAlbums, params])
 

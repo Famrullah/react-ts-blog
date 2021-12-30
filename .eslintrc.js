@@ -9,6 +9,7 @@ module.exports = {
       version: 'detect',
     },
   },
+  plugins: ['react-hooks'],
   extends: [
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
@@ -22,6 +23,8 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn', // <--- THIS IS THE NEW RULE
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/no-var-requires': 'off',
