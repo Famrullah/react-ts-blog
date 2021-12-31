@@ -12,8 +12,8 @@ class Api {
     })
   }
 
-  static async get<ResponseType>(url: string) {
-    return await Api.axiosInstance.get<ResponseType>(url)
+  static async get<ResponseType, Config>(url: string, config?: Config) {
+    return await Api.axiosInstance.get<ResponseType>(url, config)
   }
 
   static async post<ResponseType, DataType>(url: string, data?: DataType) {
