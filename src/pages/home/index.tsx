@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { getAlbumsList } from '../../services/albums.api'
 import { getUserList } from '../../services/users.api'
-import { Albums, Users } from '../../common/type'
+import { Albums, Users, IParams } from './type'
 import Loading from '../../components/loading/loading'
 import { Button, Row, Col, Divider, Card, Avatar, Descriptions } from 'antd'
-import { IParams } from './type'
 const { Meta } = Card
 
 const Home = () => {
