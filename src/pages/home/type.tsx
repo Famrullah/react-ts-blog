@@ -10,6 +10,7 @@ export interface Albums {
   title: string
   userId: number
   user: [Users]
+  // prevState: null
 }
 
 export interface Album extends Users {
