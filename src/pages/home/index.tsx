@@ -36,7 +36,7 @@ const Home = () => {
 
   useEffect(() => {
     const fetchAlbums = async () => {
-      const getAlbum = await getAlbumsList(`albums`, params)
+      const getAlbum = await getAlbumsList('albums', params)
       const users = await getUserList('users')
       const data = getAlbum.map((item) =>
         Object.assign(item, {
