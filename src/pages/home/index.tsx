@@ -8,7 +8,10 @@ const { Meta } = Card
 
 const Home = () => {
   const [listAlbums, setListAlbums] = useState<Albums[]>([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState({
+    page: true,
+    button: false,
+  })
   const [params, setParams] = useState<IParams>({
     params: { _start: 0, _limit: 10 },
   })
@@ -22,7 +25,10 @@ const Home = () => {
     setListAlbums((prevState) => {
       if (prevState) {
         setListAlbums([...prevState, ...albums])
-        setLoading(false)
+        setLoading({
+          page: false,
+          button: true,
+        })
       }
       return prevState
     })
@@ -41,10 +47,11 @@ const Home = () => {
     }
     fetchAlbums()
   }, [setListAlbums, params])
+  console.log(listAlbums)
 
   return (
     <>
-      {loading ? (
+      {loading.page ? (
         <Loading />
       ) : (
         <Row align="middle" gutter={40}>
@@ -79,12 +86,11 @@ const Home = () => {
                   <Descriptions.Item label="Email">
                     {item.user[0].email}
                   </Descriptions.Item>
-                  <Descriptions.Item label="website">
+                  <Descriptions.Item label="Website">
                     {item.user[0].website}
                   </Descriptions.Item>
-                  <Descriptions.Item label="Address">
-                    No. 18, Wantang Road, Xihu District, Hangzhou, Zhejiang,
-                    China
+                  <Descriptions.Item label="City">
+                    {item.user[0].address.city}
                   </Descriptions.Item>
                 </Descriptions>
                 <Button
