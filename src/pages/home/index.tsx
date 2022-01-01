@@ -8,12 +8,9 @@ const { Meta } = Card
 
 const Home = () => {
   const [listAlbums, setListAlbums] = useState<Albums[]>([])
-  const [loading, setLoading] = useState({
-    page: true,
-    button: false,
-  })
+  const [loading, setLoading] = useState(true)
   const [params, setParams] = useState<IParams>({
-    params: { _start: 0, _limit: 10 },
+    params: { _start: 0, _limit: 1000 },
   })
 
   const mappingUserAlbum = (album: Albums[], users: Users[]) => {
@@ -25,13 +22,20 @@ const Home = () => {
     setListAlbums((prevState) => {
       if (prevState) {
         setListAlbums([...prevState, ...albums])
-        setLoading({
-          page: false,
-          button: true,
-        })
+        setLoading(false)
       }
       return prevState
     })
+  }
+
+  const loadMore = () => {
+    setParams({
+      params: {
+        _limit: params.params._limit,
+        _start: params.params._start + 10,
+      },
+    })
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -51,7 +55,7 @@ const Home = () => {
 
   return (
     <>
-      {loading.page ? (
+      {loading ? (
         <Loading />
       ) : (
         <Row align="middle" gutter={40}>
@@ -107,14 +111,8 @@ const Home = () => {
             key="setting"
             type="link"
             block
-            onClick={() =>
-              setParams({
-                params: {
-                  _limit: params.params._limit,
-                  _start: params.params._start + 10,
-                },
-              })
-            }
+            onClick={() => loadMore()}
+            loading={loading}
           >
             Load More
           </Button>
