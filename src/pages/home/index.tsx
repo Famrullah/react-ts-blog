@@ -8,7 +8,10 @@ const { Meta } = Card
 
 const Home = () => {
   const [listAlbums, setListAlbums] = useState<Albums[]>([])
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState({
+    page: true,
+    button: false,
+  })
   const [params, setParams] = useState<IParams>({
     params: { _start: 0, _limit: 10 },
   })
@@ -22,10 +25,31 @@ const Home = () => {
     setListAlbums((prevState) => {
       if (prevState) {
         setListAlbums([...prevState, ...albums])
-        setLoading(false)
+        loadingButton(prevState, 'page')
+        loadingButton(prevState, 'button')
       }
       return prevState
     })
+  }
+
+  const loadingButton = (
+    prevState: string | unknown[],
+    typeLoading: string
+  ) => {
+    if (typeLoading === 'button') {
+      if (prevState.length !== listAlbums.length) {
+        setLoading({
+          page: false,
+          button: false,
+        })
+      }
+    }
+    if (typeLoading === 'page') {
+      setLoading({
+        page: false,
+        button: false,
+      })
+    }
   }
 
   const loadMore = () => {
@@ -35,7 +59,10 @@ const Home = () => {
         _start: params.params._start + 10,
       },
     })
-    setLoading(false)
+    setLoading({
+      page: false,
+      button: true,
+    })
   }
 
   useEffect(() => {
@@ -55,7 +82,7 @@ const Home = () => {
 
   return (
     <>
-      {loading ? (
+      {loading.page ? (
         <Loading />
       ) : (
         <Row align="middle" gutter={40}>
@@ -112,7 +139,7 @@ const Home = () => {
             type="link"
             block
             onClick={() => loadMore()}
-            loading={loading}
+            loading={loading.button}
           >
             Load More
           </Button>
