@@ -10,7 +10,7 @@ const Home = () => {
   const [listAlbums, setListAlbums] = useState<Albums[]>([])
   const [loading, setLoading] = useState(true)
   const [params, setParams] = useState<IParams>({
-    params: { _start: 0, _limit: 1000 },
+    params: { _start: 0, _limit: 10 },
   })
 
   const mappingUserAlbum = (album: Albums[], users: Users[]) => {
