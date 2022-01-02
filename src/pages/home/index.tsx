@@ -16,21 +16,6 @@ const Home = () => {
     params: { _start: 0, _limit: 10 },
   })
 
-  const mappingUserAlbum = (album: Albums[], users: Users[]) => {
-    const albums = album.map((item) =>
-      Object.assign(item, {
-        user: users.filter((val) => item.userId == val.id),
-      })
-    )
-    setListAlbums((prevState) => {
-      if (prevState) {
-        setListAlbums([...prevState, ...albums])
-        stopLoading()
-      }
-      return prevState
-    })
-  }
-
   const stopLoading = () => {
     setLoading({
       page: false,
@@ -60,6 +45,20 @@ const Home = () => {
           user: users.filter((val) => item.userId == val.id),
         })
       )
+      const mappingUserAlbum = (album: Albums[], users: Users[]) => {
+        const albums = album.map((item) =>
+          Object.assign(item, {
+            user: users.filter((val) => item.userId == val.id),
+          })
+        )
+        setListAlbums((prevState) => {
+          if (prevState) {
+            setListAlbums([...prevState, ...albums])
+            stopLoading()
+          }
+          return prevState
+        })
+      }
       mappingUserAlbum(data, users)
     }
     fetchAlbums()
