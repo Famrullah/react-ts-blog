@@ -25,31 +25,17 @@ const Home = () => {
     setListAlbums((prevState) => {
       if (prevState) {
         setListAlbums([...prevState, ...albums])
-        loadingButton(prevState, 'page')
-        loadingButton(prevState, 'button')
+        isLoading()
       }
       return prevState
     })
   }
 
-  const loadingButton = (
-    prevState: string | unknown[],
-    typeLoading: string
-  ) => {
-    if (typeLoading === 'button') {
-      if (prevState.length !== listAlbums.length) {
-        setLoading({
-          page: false,
-          button: false,
-        })
-      }
-    }
-    if (typeLoading === 'page') {
-      setLoading({
-        page: false,
-        button: false,
-      })
-    }
+  const isLoading = () => {
+    setLoading({
+      page: false,
+      button: false,
+    })
   }
 
   const loadMore = () => {
@@ -78,7 +64,6 @@ const Home = () => {
     }
     fetchAlbums()
   }, [setListAlbums, params])
-  console.log(listAlbums)
 
   return (
     <>
