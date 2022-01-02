@@ -25,13 +25,13 @@ const Home = () => {
     setListAlbums((prevState) => {
       if (prevState) {
         setListAlbums([...prevState, ...albums])
-        isLoading()
+        stopLoading()
       }
       return prevState
     })
   }
 
-  const isLoading = () => {
+  const stopLoading = () => {
     setLoading({
       page: false,
       button: false,
